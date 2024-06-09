@@ -1,18 +1,22 @@
 import "./App.css";
-import { Link } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
+import Navbar from "./Component/Navbar";
+import Home from "./Component/Home";
+import Login from "./Component/Login";
+import Signup from "./Component/Signup";
+import Dashboard from "./Component/Dashboard";
 
 function App() {
   return (
     <div className="navigationBar">
-      <nav>
-        <div>
-          <Link>
-            <p>
-              <span>S</span>StudyNotion
-            </p>
-          </Link>
-        </div>
-      </nav>
+      <Navbar />
+
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="login" element={<Login />}></Route>
+        <Route path="signup" element={<Signup />}></Route>
+        <Route path="dashboard" element={<Dashboard />}></Route>
+      </Routes>
     </div>
   );
 }
