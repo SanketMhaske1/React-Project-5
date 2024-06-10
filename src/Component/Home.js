@@ -1,7 +1,11 @@
 import React from "react";
 
 function Home() {
-  return <div>Home</div>;
+  return (
+    <div className="flex justify-center items-center">
+      Welcome To StudyNotion
+    </div>
+  );
 }
 
 export default Home;
