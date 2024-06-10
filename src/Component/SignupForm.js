@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-function SignupForm() {
+function SignupForm({ setIsLoggedIn }) {
+  const navigation = useNavigate();
+
   const [FormData, setFormData] = useState({
-    firstname: "",
-    lastname: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -13,12 +17,23 @@ function SignupForm() {
   const [showPassword, setshowPassword] = useState(false);
 
   function changeHandler(event) {
-    setFormData((prve) => {
-      setFormData((prve) => ({
-        ...prve,
-        [event.target.name]: event.target.value,
-      }));
-    });
+    setFormData((prevData) => ({
+      ...prevData,
+      [event.target.name]: event.target.value,
+    }));
+  }
+
+  function signupHandler(event) {
+    event.preventDefault();
+
+    if (FormData.password !== FormData.confirmPassword) {
+      toast.error("Password Do Not Match");
+      return;
+    }
+
+    setIsLoggedIn(true);
+    toast.success("Account Created Succesfully");
+    navigation("/dashboard");
   }
 
   return (
@@ -28,7 +43,7 @@ function SignupForm() {
         <button>Instructor</button>
       </div>
 
-      <form>
+      <form onSubmit={signupHandler}>
         <div>
           <label>
             <p>
@@ -37,10 +52,10 @@ function SignupForm() {
             <input
               required
               type="text"
-              name="firstname"
+              name="firstName"
               onChange={changeHandler}
               placeholder="Enter First Name"
-              value={FormData.firstname}
+              value={FormData.firstName}
             ></input>
           </label>
 
@@ -51,10 +66,10 @@ function SignupForm() {
             <input
               required
               type="text"
-              name="lastname"
+              name="lastName"
               onChange={changeHandler}
               placeholder="Enter Last Name"
-              value={FormData.lastname}
+              value={FormData.lastName}
             ></input>
           </label>
         </div>
@@ -85,7 +100,13 @@ function SignupForm() {
             placeholder="Enter Password"
             value={FormData.password}
           ></input>
-          {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+          <span
+            onClick={() => {
+              setshowPassword((prev) => !prev);
+            }}
+          >
+            {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+          </span>{" "}
         </label>
 
         <label>
@@ -100,7 +121,13 @@ function SignupForm() {
             placeholder="Confirm Password"
             value={FormData.confirmPassword}
           ></input>
-          {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+          <span
+            onClick={() => {
+              setshowPassword((prev) => !prev);
+            }}
+          >
+            {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+          </span>{" "}
         </label>
         <button>Sign Up</button>
       </form>

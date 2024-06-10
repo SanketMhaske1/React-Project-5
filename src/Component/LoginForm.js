@@ -20,19 +20,22 @@ function LoginForm({ setIsLoggedIn }) {
     }));
   }
 
-  function signInHandler(event) {
+  function logInHandler(event) {
     event.preventDefault();
     setIsLoggedIn(true);
-    toast.success("Sign is SuccesFully");
+    toast.success("Sign is Succesfully");
     navigate("/dashboard");
   }
 
   return (
     <div>
-      <form onSubmit={signInHandler}>
-        <label>
-          <p>
-            Email Address <sup>*</sup>
+      <form
+        onSubmit={logInHandler}
+        className="flex flex-col w-full gap-y-4 mt-6"
+      >
+        <label className="w-full">
+          <p className="text-[0.875rem] text-richblack-5 mb-1 leading-[1.375rem]">
+            Email Address <sup className="text-pink-200">*</sup>
           </p>
           <input
             type="email"
@@ -40,12 +43,13 @@ function LoginForm({ setIsLoggedIn }) {
             name="email"
             onChange={changeHandler}
             placeholder="Enter Email Id"
+            className="bg-richblack-800 rounded-[0.5rem] text-richblack-5 w-full p-[12px]"
           ></input>
         </label>
 
-        <label>
-          <p>
-            password <sup>*</sup>
+        <label className="w-full">
+          <p className="text-[0.875rem] text-richblack-5 mb-1 leading-[1.375rem]">
+            password <sup className="text-pink-200">*</sup>
           </p>
           <input
             type={showPassword ? "text" : "password"}
@@ -53,6 +57,7 @@ function LoginForm({ setIsLoggedIn }) {
             name="password"
             onChange={changeHandler}
             placeholder="Enter Password"
+            className="bg-richblack-800 rounded-[0.5rem] text-richblack-5 w-full p-[12px]"
           ></input>
 
           <span
